@@ -3,6 +3,10 @@
 
 #include <ncurses.h>
 
+#define GAME_LOST -1
+#define IN_PROGRESS 0
+#define GAME_WON 1
+
 //-----ENEMY SPACESHIP-----//
 
 // For one enemy spaceship
@@ -25,9 +29,10 @@ public:
     Enemy fleet[40];
 
     // level -> Stores possible levels of the spaceships in the fleet (the row on the screen)
+    // shipsDown -> Keeps track of number of ships hit
     // xMax -> maximum width the fleet can go  to to the right
     // yMax -> maximum height the fleet can go to to the bottom
-    int level[4], yMax, xMax;
+    int level[4], shipsDown, yMax, xMax;
 
     // To check if a ship was hit. hit[i] is true if ship i was hit, else it is false
     bool hit[40] = {false};
@@ -89,8 +94,5 @@ void moveFleet(EnemyFleet &E);
 
 // Pauses the game
 void pauseGame();
-
-// Ends the game and returns to the main menu
-void endGame();
 
 #endif

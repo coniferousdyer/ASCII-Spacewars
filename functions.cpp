@@ -3,6 +3,8 @@
 #include <ctime>
 #include <string>
 
+static short int state;
+
 // ASCII explosion. Made it global because I couldn't find a better place to put it :(
 const char *explosion[3] = {"\\||//",
                             "--  --",
@@ -17,6 +19,64 @@ void delay(int noOfSeconds)
     clock_t start = clock();
     while (clock() < start + milliSeconds)
         ;
+}
+
+//-----MESSAGE FUNCTIONS-----//
+
+void loseMessage()
+{
+    delay(2000);
+
+    // Clear screen
+    clear();
+
+    // Obtaining the dimensions of the screen
+    int height = getmaxy(stdscr);
+    int width = getmaxx(stdscr);
+
+    mvprintw(height / 2 - 4, width / 2 - 28, "               YOU HAVE FAILED TO SAVE EARTH.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 - 2, width / 2 - 28, "The people of Earth were counting on you. You let them down.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2, width / 2 - 28, "           The Krueldronites have destroyed Earth. ");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 + 2, width / 2 - 28, "                     MISSION: FAILURE");
+    refresh();
+    delay(2000);
+
+    // Sets state to GAME_LOST so that we break out of game loop
+    state = GAME_LOST;
+}
+
+void winMessage()
+{
+    delay(2000);
+
+    // Clear screen
+    clear();
+
+    // Obtaining the dimensions of the screen
+    int height = getmaxy(stdscr);
+    int width = getmaxx(stdscr);
+
+    mvprintw(height / 2 - 4, width / 2 - 30, "                   YOU HAVE SAVED EARTH.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 - 2, width / 2 - 30, "The people of Earth were counting on you. You did not let them down.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2, width / 2 - 30, "             The Krueldronites have fled Earth.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 + 2, width / 2 - 30, "                    MISSION: SUCCESS");
+    refresh();
+    delay(2000);
+
+    // Sets state to GAME_WON so that we break out of game loop
+    state = GAME_WON;
 }
 
 //-----PLAYER CLASS FUNCTIONS-----//
@@ -107,6 +167,9 @@ void Player::Shoot(EnemyFleet &E)
             if (!check)
                 continue;
 
+            // Incrementing the number of hit ships
+            ++E.shipsDown;
+
             // Checking each spaceship to see which one was hit
             for (int j = lvl * 10; j < (lvl + 1) * 10; j++)
             {
@@ -139,6 +202,11 @@ void Player::Shoot(EnemyFleet &E)
         hit:
             // To remove the bullet if it has hit a ship
             mvprintw(i + 1, loc, " ");
+
+            // Checking if all ships were hit
+            if (E.shipsDown == 40)
+                winMessage();
+
             return;
         }
 
@@ -161,21 +229,11 @@ void Player::Shoot(EnemyFleet &E)
 
 //------ENEMYFLEET CLASS FUNCTIONS------//
 
-void gameTitle(int height, int width)
-{
-    mvwprintw(stdscr, height / 2 - 10, width / 2 - 26, "##### ##### ##### ##### ##### # # # ##### ##### #####");
-    mvwprintw(stdscr, height / 2 - 9, width / 2 - 26, "##    #   # #   # #     #     # # # #   # #   # #");
-    mvwprintw(stdscr, height / 2 - 8, width / 2 - 26, "##### ##### ##### #     ##### # # # ##### ##### #####");
-    mvwprintw(stdscr, height / 2 - 7, width / 2 - 26, "   ## #     #   # #     #     ## ## #   # # #       #");
-    mvwprintw(stdscr, height / 2 - 6, width / 2 - 26, "##### #     #   # ##### ##### ## ## #   # #  #  #####");
-}
-
-void gameIntro()
-{
-}
-
 EnemyFleet::EnemyFleet(int height, int width)
 {
+    // Setting number of ships hit to 0
+    shipsDown = 0;
+
     yMax = 1;
     xMax = width - 10;
     for (int i = 0; i < 4; i++)
@@ -246,6 +304,10 @@ void EnemyFleet::shiftFleetLeft()
 
 void EnemyFleet::shiftFleetDown(bool end)
 {
+    // Checking if the fleet has reached the bottom position
+    if (level[3] == getmaxy(stdscr) - 10)
+        loseMessage();
+
     // Erasing spaceships from previous positions
     for (int i = 0; i < 40; i++)
     {
@@ -266,6 +328,34 @@ void EnemyFleet::shiftFleetDown(bool end)
 }
 
 //-----GAME FUNCTIONS-----//
+
+// Displays the title of the game
+void gameTitle(int height, int width)
+{
+    mvwprintw(stdscr, height / 2 - 10, width / 2 - 26, "##### ##### ##### ##### ##### # # # ##### ##### #####");
+    mvwprintw(stdscr, height / 2 - 9, width / 2 - 26, "##    #   # #   # #     #     # # # #   # #   # #");
+    mvwprintw(stdscr, height / 2 - 8, width / 2 - 26, "##### ##### ##### #     ##### # # # ##### ##### #####");
+    mvwprintw(stdscr, height / 2 - 7, width / 2 - 26, "   ## #     #   # #     #     ## ## #   # # #       #");
+    mvwprintw(stdscr, height / 2 - 6, width / 2 - 26, "##### #     #   # ##### ##### ## ## #   # #  #  #####");
+    mvwprintw(stdscr, height / 2 - 4, width / 2 - 26, "                By Arjun Muraleedharan");
+}
+
+// Displays the story intro to the game
+void gameIntro(int height, int width)
+{
+    mvprintw(height / 2 - 4, width / 2 - 29, "Aliens from the planet of Krueldron are about to invade Earth.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 - 2, width / 2 - 29, "   They have managed to destroy all of Earth's spaceships.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2, width / 2 - 29, "   You are the only pilot left. You are Earth's last hope.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 + 2, width / 2 - 29, "   Your mission is to destroy all Krueldronite spaceships.");
+    refresh();
+    delay(2000);
+}
 
 void moveFleet(EnemyFleet &E)
 {
@@ -288,43 +378,15 @@ void moveFleet(EnemyFleet &E)
         E.shiftFleetLeft();
 }
 
-void loseMessage()
-{
-    delay(2000);
-
-    clear();
-
-    int height = getmaxy(stdscr);
-    int width = getmaxx(stdscr);
-
-    mvprintw(height / 2 - 5, width / 2 - 28, "               YOU HAVE FAILED TO SAVE EARTH.");
-    refresh();
-    delay(2000);
-    mvprintw(height / 2 - 3, width / 2 - 28, "The people of Earth were counting on you. You let them down.");
-    refresh();
-    delay(2000);
-    mvprintw(height / 2 - 1, width / 2 - 28, "           The Krueldronites have destroyed Earth. ");
-    refresh();
-    delay(2000);
-    mvprintw(height / 2 + 1, width / 2 - 28, "                     MISSION: FAILURE");
-    refresh();
-    delay(3000);
-}
-
-void winMessage()
-{
-}
-
 void pauseGame()
-{
-}
-
-void endGame()
 {
 }
 
 void startGame(int height, int width)
 {
+    // Setting state of game to IN_PROGRESS
+    state = IN_PROGRESS;
+
     // Clearing screen
     clear();
 
@@ -350,7 +412,7 @@ void startGame(int height, int width)
     int move;
 
     // This is the game loop
-    for (;;)
+    while (state == IN_PROGRESS)
     {
         // Taking user input
         move = getch();
@@ -374,15 +436,17 @@ void startGame(int height, int width)
                 break;
             case 'e': // e or E
             case 'E':
-                endGame();
                 goto return_to_menu;
             default:
                 continue;
             }
         }
 
-        napms(30);
-        moveFleet(E);
+        if (!state)
+        {
+            napms(30);
+            moveFleet(E);
+        }
     }
 
 return_to_menu:
@@ -448,8 +512,13 @@ void startMenu(int height, int width)
                 // Clears screen
                 clear();
 
-                // Moves to centre of screen and prints
-                mvprintw(height / 2, width / 2 - 14, "Press any key to start the game.");
+                // Prints the intro to the game
+                gameIntro(height, width);
+
+                // Flushes input buffer
+                flushinp();
+
+                mvprintw(height / 2 + 4, width / 2 - 29, "             Press any key to start the game.");
                 refresh();
                 getch();
 
@@ -462,11 +531,11 @@ void startMenu(int height, int width)
             case 2:
                 break;
             case 3:
-                goto return_to_main;
+                goto return_to_start_menu; // Exiting and returning to start menu
                 break;
             }
         }
     }
 
-return_to_main:;
+return_to_start_menu:;
 }

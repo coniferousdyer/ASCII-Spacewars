@@ -12,9 +12,15 @@ int main()
     int height = getmaxy(stdscr);
     int width = getmaxx(stdscr);
 
+    // Starts up the menu
     startMenu(height, width);
 
+    /* Procedure to exit the program */
     clear();
+
+    // Flushes input buffer
+    flushinp();
+
     mvprintw(height / 2, width / 2 - 9, "Press any key to exit.");
     refresh();
     getch();
@@ -30,4 +36,6 @@ int main()
 // Clear buffer for movement
 // Fix glitches in shooting
 // Display error while shooting
-// Game not exiting properly
+// Pause game
+// Add controls and rules
+// Add credits
