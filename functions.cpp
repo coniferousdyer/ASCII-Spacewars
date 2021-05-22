@@ -3,6 +3,7 @@
 #include <ctime>
 #include <string>
 
+// Global variable deciding the state of the game: whether in progress or whether the game is over
 static short int state;
 
 // ASCII explosion. Made it global because I couldn't find a better place to put it :(

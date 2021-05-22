@@ -66,7 +66,7 @@ Use the following command to run the game:
 
 ## <strong>Rules of the Game</strong>
 
-
+Your mission is to shoot down all the enemy spaceships before they reach the bottom of the screen. If you fail to do so, you lose. If you shoot them all down in time, you win.
 <br><br>
 
 ## <strong>Game Instructions</strong>
