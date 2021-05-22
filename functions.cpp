@@ -358,6 +358,32 @@ void gameIntro(int height, int width)
     delay(2000);
 }
 
+void ControlsAndRules(int height, int width)
+{
+    clear();
+
+    // Displaying controls
+    mvprintw(height / 2 - 6, width / 2 - 18, "             CONTROLS");
+    mvprintw(height / 2 - 4, width / 2 - 18, " Press LEFT arrow key to move left.");
+    mvprintw(height / 2 - 3, width / 2 - 18, "Press RIGHT arrow key to move right.");
+    mvprintw(height / 2 - 2, width / 2 - 18, " Press SPACE key to shoot bullets.");
+
+    // Displaying rules
+    mvprintw(height / 2, width / 2 - 39, "                                   RULES");
+    mvprintw(height / 2 + 2, width / 2 - 39, "Your mission is to shoot down all the enemy ships before they reach the bottom.");
+    mvprintw(height / 2 + 3, width / 2 - 39, "                     If you fail to do so, you lose.");
+    mvprintw(height / 2 + 4, width / 2 - 39, "                 If you shoot them all down in time, you win.");
+
+    mvprintw(height / 2 + 9, width / 2 - 20, "Press any key to return to start menu.");
+
+    // Flushing input buffer
+    flushinp();
+    refresh();
+
+    // Waiting for user input
+    getch();
+}
+
 void moveFleet(EnemyFleet &E)
 {
     // We send a bool parameter to shiftFleetDown.
@@ -462,7 +488,7 @@ void startMenu(int height, int width)
     // Enabling the use of arrow keys
     keypad(stdscr, true);
 
-    std::string options[4] = {"Start Game", "Controls and Rules", "Credits", "Exit"};
+    std::string options[3] = {"Start Game", "Controls and Rules", "Exit"};
 
     int chosen_option, highlight = 0;
 
@@ -474,7 +500,7 @@ void startMenu(int height, int width)
         gameTitle(height, width);
 
         // Traversing through the options to check which one is highlighted
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
             if (i == highlight)
             {
                 // Turn on highlight
@@ -496,7 +522,7 @@ void startMenu(int height, int width)
             --highlight;
             break;
         case KEY_DOWN: // DOWN arrow key
-            if (highlight == 3)
+            if (highlight == 2)
                 break;
             ++highlight;
             break;
@@ -528,10 +554,9 @@ void startMenu(int height, int width)
             }
             break;
             case 1:
+                ControlsAndRules(height, width);
                 break;
             case 2:
-                break;
-            case 3:
                 goto return_to_start_menu; // Exiting and returning to start menu
                 break;
             }

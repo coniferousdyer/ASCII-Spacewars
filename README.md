@@ -13,7 +13,7 @@ The program is divided into 3 files:
 
 2. `functions.hpp`: Contains the function declarations of the functions written in `functions.cpp`.
 
-3. `main.cpp`: Contains `main()`. This is where the program starts execution.
+3. `main.cpp`: Contains `main()`. This is where the program starts and ends execution.
 <br><br>
 
 ## <strong>Game Objects</strong> 
