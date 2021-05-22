@@ -2,27 +2,24 @@
 
 int main()
 {
+    // Initialises the window
     initscr();
+
+    // To prevent getch from displaying characters on the screen
     noecho();
 
     // Obtaining dimensions of screen
     int height = getmaxy(stdscr);
     int width = getmaxx(stdscr);
 
-    // Enabling the use of arrow keys
-    keypad(stdscr, true);
+    startMenu(height, width);
 
-    // Moves to centre of screen and prints
-    mvprintw(height / 2, width / 2 - 14, "Press any key to start the game.");
-    refresh();
-    getch();
-     
-    // Starts the game
-    startGame(height, width);
-
+    clear();
     mvprintw(height / 2, width / 2 - 9, "Press any key to exit.");
     refresh();
     getch();
+
+    // Ends the window
     endwin();
 
     return 0;

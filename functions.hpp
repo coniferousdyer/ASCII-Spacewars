@@ -78,6 +78,9 @@ public:
     void Shoot(EnemyFleet &E);
 };
 
+// Function to print a menu and allow the user to choose options
+void startMenu(int height, int width);
+
 // The main function of the program -> starts the game
 void startGame(int height, int width);
 

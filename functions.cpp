@@ -1,6 +1,7 @@
 #include "functions.hpp"
 
 #include <ctime>
+#include <string>
 
 // ASCII explosion. Made it global because I couldn't find a better place to put it :(
 const char *explosion[3] = {"\\||//",
@@ -77,7 +78,7 @@ void Player::Shoot(EnemyFleet &E)
         // Detecting the character adjacent to ch1 (to account for movement while bullet is travelling)
         int ch2;
 
-        // If level is odd, check left (as fleet is moving right). 
+        // If level is odd, check left (as fleet is moving right).
         // If level is even, check right (as fleet is moving left).
         if (E.level[0] % 2 == 1)
             ch2 = mvinch(i, loc - 1);
@@ -159,6 +160,19 @@ void Player::Shoot(EnemyFleet &E)
 }
 
 //------ENEMYFLEET CLASS FUNCTIONS------//
+
+void gameTitle(int height, int width)
+{
+    mvwprintw(stdscr, height / 2 - 10, width / 2 - 26, "##### ##### ##### ##### ##### # # # ##### ##### #####");
+    mvwprintw(stdscr, height / 2 - 9, width / 2 - 26, "##    #   # #   # #     #     # # # #   # #   # #");
+    mvwprintw(stdscr, height / 2 - 8, width / 2 - 26, "##### ##### ##### #     ##### # # # ##### ##### #####");
+    mvwprintw(stdscr, height / 2 - 7, width / 2 - 26, "   ## #     #   # #     #     ## ## #   # # #       #");
+    mvwprintw(stdscr, height / 2 - 6, width / 2 - 26, "##### #     #   # ##### ##### ## ## #   # #  #  #####");
+}
+
+void gameIntro()
+{
+}
 
 EnemyFleet::EnemyFleet(int height, int width)
 {
@@ -274,19 +288,38 @@ void moveFleet(EnemyFleet &E)
         E.shiftFleetLeft();
 }
 
-void pauseGame()
+void loseMessage()
 {
-}
+    delay(2000);
 
-void endGame()
-{
+    clear();
+
+    int height = getmaxy(stdscr);
+    int width = getmaxx(stdscr);
+
+    mvprintw(height / 2 - 5, width / 2 - 28, "               YOU HAVE FAILED TO SAVE EARTH.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 - 3, width / 2 - 28, "The people of Earth were counting on you. You let them down.");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 - 1, width / 2 - 28, "           The Krueldronites have destroyed Earth. ");
+    refresh();
+    delay(2000);
+    mvprintw(height / 2 + 1, width / 2 - 28, "                     MISSION: FAILURE");
+    refresh();
+    delay(3000);
 }
 
 void winMessage()
 {
 }
 
-void loseMessage()
+void pauseGame()
+{
+}
+
+void endGame()
 {
 }
 
@@ -309,6 +342,8 @@ void startGame(int height, int width)
 
     scrollok(stdscr, true);
     nodelay(stdscr, true);
+
+    // To turn blinking cursor off
     curs_set(0);
 
     // To store the move the player makes
@@ -350,5 +385,88 @@ void startGame(int height, int width)
         moveFleet(E);
     }
 
-return_to_menu:;
+return_to_menu:
+    scrollok(stdscr, false);
+    nodelay(stdscr, false);
+}
+
+void startMenu(int height, int width)
+{
+    clear();
+
+    // Enabling the use of arrow keys
+    keypad(stdscr, true);
+
+    std::string options[4] = {"Start Game", "Controls and Rules", "Credits", "Exit"};
+
+    int chosen_option, highlight = 0;
+
+    while (true)
+    {
+        // Clears the whole screen instead of just the menu window
+        clear();
+
+        gameTitle(height, width);
+
+        // Traversing through the options to check which one is highlighted
+        for (int i = 0; i < 4; i++)
+            if (i == highlight)
+            {
+                // Turn on highlight
+                wattron(stdscr, A_REVERSE);
+                mvprintw(i + height / 2, width / 2 - 8, options[i].c_str());
+                // Turn off highlight
+                wattroff(stdscr, A_REVERSE);
+            }
+            else
+                mvprintw(i + height / 2, width / 2 - 8, options[i].c_str());
+
+        chosen_option = getch();
+
+        switch (chosen_option)
+        {
+        case KEY_UP: // UP arrow key
+            if (highlight == 0)
+                break;
+            --highlight;
+            break;
+        case KEY_DOWN: // DOWN arrow key
+            if (highlight == 3)
+                break;
+            ++highlight;
+            break;
+        default:;
+        }
+
+        // If user presses Enter
+        if (chosen_option == 10)
+        {
+            switch (highlight)
+            {
+            case 0:
+            {
+                // Clears screen
+                clear();
+
+                // Moves to centre of screen and prints
+                mvprintw(height / 2, width / 2 - 14, "Press any key to start the game.");
+                refresh();
+                getch();
+
+                // Starts the game
+                startGame(height, width);
+            }
+            break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                goto return_to_main;
+                break;
+            }
+        }
+    }
+
+return_to_main:;
 }
