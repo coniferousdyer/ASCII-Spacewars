@@ -45,7 +45,7 @@ The program is divided into 3 files:
 
 2. You can then clone this repository using the following command:
 
-`git clone  `
+`git clone https://github.com/coniferousdyer/ASCII-Spacewars.git`
 
 You now have everything required to compile and run the game.
 
@@ -53,7 +53,7 @@ You now have everything required to compile and run the game.
 
 If you have the g++ compiler, you can use the following commands to compile the game:
 
-`cd `
+`cd ASCII-Spacewars`
 <br>
 `g++ *.cpp -o name_of_executable -lncurses`
 
