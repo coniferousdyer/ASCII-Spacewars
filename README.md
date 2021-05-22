@@ -39,7 +39,7 @@ The program is divided into 3 files:
 
 ### I. Installation
 
-1. In order to compile and run the game, you must have the Ncurses library installed. To download the Ncurses library on Debian/Ubuntu Linux, type the following command in the terminal:
+1. In order to compile and run the game, you must have the ncurses library installed. To download the ncurses library on Debian/Ubuntu Linux, type the following command in the terminal:
 
 `sudo apt-get install libncurses5-dev libncursesw5-dev`
 
