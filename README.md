@@ -3,7 +3,7 @@
 This is a terminal-based ASCII game similar to the 1978 game Space Invaders. This was written in C++, using the ncurses library. 
 
 <strong>About ncurses</strong>: <a href="https://github.com/mirror/ncurses">ncurses</a>
-<br><br>
+
 
 ## <strong>Structure</strong>
 
@@ -14,7 +14,7 @@ The program is divided into 3 files:
 2. `functions.hpp`: Contains the function declarations of the functions written in `functions.cpp`.
 
 3. `main.cpp`: Contains `main()`. This is where the program starts and ends execution.
-<br><br>
+
 
 ## <strong>Game Objects</strong> 
 
@@ -33,9 +33,7 @@ The program is divided into 3 files:
 
 ## <strong>Setup</strong>
 
-<br>
 <strong>NOTE: The following commands only work on Debian/Ubuntu Linux. The game will run on other Linux distributions, but the commands must be modified accordingly. Compatibility with Windows OS has not been tested yet.</strong>
-<br><br>
 
 ### I. Installation
 
@@ -62,12 +60,12 @@ If you have the g++ compiler, you can use the following commands to compile the 
 Use the following command to run the game:
 
 `./name_of_executable`
-<br><br>
+
 
 ## <strong>Rules of the Game</strong>
 
 Your mission is to shoot down all the enemy spaceships before they reach the bottom of the screen (i.e. when Distance Left becomes 0). If you fail to do so, you lose. If you shoot them all down in time (i.e. Ships Left becomes 0), you win.
-<br><br>
+
 
 ## <strong>Game Instructions</strong>
 
