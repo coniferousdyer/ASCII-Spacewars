@@ -82,3 +82,20 @@ Your mission is to shoot down all the enemy spaceships before they reach the bot
 1. Make the terminal full-screen in order to play the game properly. While the game works in a small-screen terminal, the gap between the enemy fleet and the player spaceship will be extremely small, and this will result in the ASCII art getting messed up. Really messed up.
 
 2. The spaceship unfortunately canot move or shoot during the short time for which the bullet travels. Instead, the input buffers up and this results in the spaceship skipping parts of the screen or lagging for a while until all the bullets have been shot. To avoid this, refrain from holding down the keys.
+
+## <strong>Screenshots</strong>
+
+<br>
+<p align="center">
+<img src="Images/Gameplay_1.png">
+</p>
+<p align="center"><em>Screenshot 1</em></p>
+
+<br>
+<p align="center">
+<img src="Images/Gameplay_2.png">
+</p>
+<p align="center"><em>Screenshot 2</em></p>
+
+<br><br>
+Hope you enjoy playing this game!
