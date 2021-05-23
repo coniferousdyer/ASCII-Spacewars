@@ -3,9 +3,11 @@
 
 #include <ncurses.h>
 
+// Defining game states
 #define GAME_LOST -1
 #define IN_PROGRESS 0
 #define GAME_WON 1
+#define GAME_ENDED 2
 
 //-----ENEMY SPACESHIP-----//
 

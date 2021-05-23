@@ -413,6 +413,26 @@ void moveFleet(EnemyFleet &E)
 
 void pauseGame()
 {
+    int ch;
+
+    // Flushing input buffer
+    flushinp();
+
+    // Replaces Pause with Press any key to resume
+    mvprintw(getmaxy(stdscr) - 1, 2, "Press any key to resume");
+    refresh();
+
+    // Delaying infinitely until user enters input
+    while ((ch = getch()) == ERR)
+        delay(1);
+
+    // Checking if user entered E or e to exit. If so, setting game state to GAME_ENDED
+    if (ch == 'e' || ch == 'E')
+        state = GAME_ENDED;
+
+    // Replaces Press any key to resume with Pause
+    mvprintw(getmaxy(stdscr) - 1, 2, "P: Pause               ");
+    refresh();
 }
 
 void startGame(int height, int width)
@@ -435,7 +455,7 @@ void startGame(int height, int width)
     P.printSpaceship();
     E.printFleet();
 
-    mvprintw(height - 1, 2, "P: Pause          E: Exit");
+    mvprintw(height - 1, 2, "P: Pause                    E: Exit");
     mvprintw(height - 1, width - 16, "Ships Left: %d ", 40 - E.shipsDown);
     mvprintw(height - 1, width - 40, "Distance left: %d ", height - 10 - E.level[3]);
 
@@ -473,7 +493,7 @@ void startGame(int height, int width)
                 break;
             case 'e': // e or E
             case 'E':
-                goto return_to_menu;
+                goto return_to_menu; // Jumps to line 509
             default:
                 continue;
             }
@@ -567,7 +587,7 @@ void startMenu(int height, int width)
                 ControlsAndRules(height, width);
                 break;
             case 2:
-                goto return_to_start_menu; // Exiting and returning to start menu
+                goto return_to_start_menu; // Exiting and returning to start menu (line 596)
                 break;
             }
         }

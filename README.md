@@ -66,7 +66,7 @@ Use the following command to run the game:
 
 ## <strong>Rules of the Game</strong>
 
-Your mission is to shoot down all the enemy spaceships before they reach the bottom of the screen. If you fail to do so, you lose. If you shoot them all down in time, you win.
+Your mission is to shoot down all the enemy spaceships before they reach the bottom of the screen (i.e. when Distance Left becomes 0). If you fail to do so, you lose. If you shoot them all down in time (i.e. Ships Left becomes 0), you win.
 <br><br>
 
 ## <strong>Game Instructions</strong>
@@ -74,7 +74,8 @@ Your mission is to shoot down all the enemy spaceships before they reach the bot
 1. <kbd>&larr;</kbd> to move the spaceship left.
 2. <kbd>&rarr;</kbd> to move the spaceship right.
 3. <kbd>SPACE</kbd> to shoot bullets.
-<br><br>
+4. <kbd>P</kbd> to pause the game.
+5. <kbd>E</kbd> to exit the game and return to the start menu.
 
 ### Warnings
 
