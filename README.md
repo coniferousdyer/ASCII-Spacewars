@@ -22,13 +22,13 @@ The program is divided into 3 files:
 <p align="center">
 <img src="Images/Player_Spaceship.png">
 </p>
-<p align="center">Player Spaceship</p>
+<p align="center"><em>Player Spaceship</em></p>
 
 <br>
 <p align="center">
 <img src="Images/Enemy_Spaceship.png">
 </p>
-<p align="center">Enemy Spaceship</p>
+<p align="center"><em>Enemy Spaceship</em></p>
 
 
 ## <strong>Setup</strong>

@@ -46,7 +46,7 @@ void loseMessage()
     delay(2000);
     mvprintw(height / 2 + 2, width / 2 - 28, "                     MISSION: FAILURE");
     refresh();
-    delay(2000);
+    delay(3000);
 
     // Sets state to GAME_LOST so that we break out of game loop
     state = GAME_LOST;
@@ -74,7 +74,7 @@ void winMessage()
     delay(2000);
     mvprintw(height / 2 + 2, width / 2 - 30, "                    MISSION: SUCCESS");
     refresh();
-    delay(2000);
+    delay(3000);
 
     // Sets state to GAME_WON so that we break out of game loop
     state = GAME_WON;
@@ -170,6 +170,9 @@ void Player::Shoot(EnemyFleet &E)
 
             // Incrementing the number of hit ships
             ++E.shipsDown;
+
+            // Printing the updated score
+            mvprintw(getmaxy(stdscr) - 1, getmaxx(stdscr) - 16, "Ships Left: %d ", 40 - E.shipsDown);
 
             // Checking each spaceship to see which one was hit
             for (int j = lvl * 10; j < (lvl + 1) * 10; j++)
@@ -319,6 +322,9 @@ void EnemyFleet::shiftFleetDown(bool end)
     for (int i = 0; i < 4; i++)
         ++level[i];
 
+    // Printing the updated distance from bottom
+    mvprintw(getmaxy(stdscr) - 1, getmaxx(stdscr) - 40, "Distance left: %d ", getmaxy(stdscr) - 10 - level[3]);
+
     // Explanation on line 229
     // If fleet is at leftmost position, end is false and we shift right.
     // If fleet is at rightmost position, end is true and we shift left.
@@ -428,6 +434,10 @@ void startGame(int height, int width)
 
     P.printSpaceship();
     E.printFleet();
+
+    mvprintw(height - 1, 2, "P: Pause          E: Exit");
+    mvprintw(height - 1, width - 16, "Ships Left: %d ", 40 - E.shipsDown);
+    mvprintw(height - 1, width - 40, "Distance left: %d ", height - 10 - E.level[3]);
 
     scrollok(stdscr, true);
     nodelay(stdscr, true);
