@@ -77,7 +77,9 @@ Your mission is to shoot down all the enemy spaceships before they reach the bot
 
 ### Warnings
 
-Make the terminal full-screen in order to play the game properly. While the game works in a small-screen terminal, the gap between the enemy fleet and the player spaceship will be extremely small, and this will result in the ASCII art getting messed up. Really messed up.
+1. Make the terminal full-screen in order to play the game properly. While the game works in a small-screen terminal, the gap between the enemy fleet and the player spaceship will be extremely small, and this will result in the ASCII art getting messed up. Really messed up.
+
+2. The ship unfortunately cannot be moved while the bullet is still travelling.
 
 ## <strong>Screenshots</strong>
 

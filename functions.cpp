@@ -207,6 +207,9 @@ void Player::Shoot(EnemyFleet &E)
             // To remove the bullet if it has hit a ship
             mvprintw(i + 1, loc, " ");
 
+            // To prevent input buffering if ship was hit
+            flushinp();
+
             // Checking if all ships were hit
             if (E.shipsDown == 40)
                 winMessage();
@@ -229,6 +232,9 @@ void Player::Shoot(EnemyFleet &E)
         // Causing a slight delay so that we can see movement of bullet
         delay(30);
     }
+
+    // To prevent input buffering if ship was not hit
+    flushinp();
 }
 
 //------ENEMYFLEET CLASS FUNCTIONS------//
@@ -339,12 +345,14 @@ void EnemyFleet::shiftFleetDown(bool end)
 // Displays the title of the game
 void gameTitle(int height, int width)
 {
-    mvwprintw(stdscr, height / 2 - 10, width / 2 - 26, "##### ##### ##### ##### ##### # # # ##### ##### #####");
-    mvwprintw(stdscr, height / 2 - 9, width / 2 - 26, "##    #   # #   # #     #     # # # #   # #   # #");
-    mvwprintw(stdscr, height / 2 - 8, width / 2 - 26, "##### ##### ##### #     ##### # # # ##### ##### #####");
-    mvwprintw(stdscr, height / 2 - 7, width / 2 - 26, "   ## #     #   # #     #     ## ## #   # # #       #");
-    mvwprintw(stdscr, height / 2 - 6, width / 2 - 26, "##### #     #   # ##### ##### ## ## #   # #  #  #####");
-    mvwprintw(stdscr, height / 2 - 4, width / 2 - 26, "                By Arjun Muraleedharan");
+    mvwprintw(stdscr, height / 2 - 11, width / 2 - 34, "------------------------------------------------------------------");
+    mvwprintw(stdscr, height / 2 - 10, width / 2 - 34, "| ##### ####### ####### ##### ###### ## # ## ###### ###### ##### |");
+    mvwprintw(stdscr, height / 2 - 9, width / 2 - 34, "| ##    ##   ## ##   ## ##    ##     ## # ## ##  ## ##   # ##    |");
+    mvwprintw(stdscr, height / 2 - 8, width / 2 - 34, "| ##### ####### ####### ##    ###### ## # ## ###### ###### ##### |");
+    mvwprintw(stdscr, height / 2 - 7, width / 2 - 34, "|    ## ##      ##   ## ##    ##     ### ### ##  ## ## ##     ## |");
+    mvwprintw(stdscr, height / 2 - 6, width / 2 - 34, "| ##### ##      ##   ## ##### ###### ### ### ##  ## ##  ## ##### |");
+    mvwprintw(stdscr, height / 2 - 5, width / 2 - 34, "|                                                                |");
+    mvwprintw(stdscr, height / 2 - 4, width / 2 - 34, "--------------------By Arjun Muraleedharan------------------------");
 }
 
 // Displays the story intro to the game
@@ -488,7 +496,6 @@ void startGame(int height, int width)
                 break;
             case 32: // Space bar
                 P.Shoot(E);
-                flushinp(); // To prevent input buffering
                 break;
             case 'p': // p or P
             case 'P':
