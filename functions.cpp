@@ -478,14 +478,17 @@ void startGame(int height, int width)
         {
             switch (move)
             {
-            case KEY_LEFT: // Left arrow key
+            case KEY_LEFT:  // Left arrow key
+                flushinp(); // To prevent input buffering
                 P.moveLeft();
                 break;
             case KEY_RIGHT: // Right arrow key
+                flushinp(); // To prevent input buffering
                 P.moveRight();
                 break;
             case 32: // Space bar
                 P.Shoot(E);
+                flushinp(); // To prevent input buffering
                 break;
             case 'p': // p or P
             case 'P':

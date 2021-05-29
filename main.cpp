@@ -30,12 +30,3 @@ int main()
 
     return 0;
 }
-
-// TODO
-//------
-// Clear buffer for movement
-// Fix glitches in shooting
-// Display error while shooting
-// Pause game
-// Add controls and rules
-// Add credits
