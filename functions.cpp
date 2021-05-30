@@ -129,12 +129,16 @@ void Player::moveLeft()
     printSpaceship();
 }
 
-void Player::Shoot(EnemyFleet &E)
+void Player::Shoot(Player &P, EnemyFleet &E)
 {
+    // move -> for player movement
+    // currentLoc -> stores the current location of player ship so that bullet travels along that path
+    int move, currentLoc = loc;
+
     for (int i = maxHeight - 2; i >= -1; i--)
     {
         // Detecting the character at the next location of the bullet
-        int ch1 = mvinch(i, loc);
+        int ch1 = mvinch(i, currentLoc);
 
         // Detecting the character adjacent to ch1 (to account for movement while bullet is travelling)
         int ch2;
@@ -142,9 +146,9 @@ void Player::Shoot(EnemyFleet &E)
         // If level is odd, check left (as fleet is moving right).
         // If level is even, check right (as fleet is moving left).
         if (E.level[0] % 2 == 1)
-            ch2 = mvinch(i, loc - 1);
+            ch2 = mvinch(i, currentLoc - 1);
         else if (E.level[0] % 2 == 0)
-            ch2 = mvinch(i, loc + 1);
+            ch2 = mvinch(i, currentLoc + 1);
 
         // Checking for a hit
         if (ch1 == 'V' || ch1 == '|' || ch1 == '[' || ch1 == ']' || ch1 == 'W' || ch2 == 'V' || ch2 == '|' || ch2 == '[' || ch2 == ']' || ch2 == 'W')
@@ -178,7 +182,7 @@ void Player::Shoot(EnemyFleet &E)
             for (int j = lvl * 10; j < (lvl + 1) * 10; j++)
             {
                 // Checking if location of bullet is hitting the spacehship
-                if (loc >= E.fleet[j].loc && loc <= E.fleet[j].loc + 5 && !E.hit[j])
+                if (currentLoc >= E.fleet[j].loc && currentLoc <= E.fleet[j].loc + 5 && !E.hit[j])
                 {
                     for (int k = 0; k < 3; k++)
                     {
@@ -205,7 +209,7 @@ void Player::Shoot(EnemyFleet &E)
 
         hit:
             // To remove the bullet if it has hit a ship
-            mvprintw(i + 1, loc, " ");
+            mvprintw(i + 1, currentLoc, " ");
 
             // To prevent input buffering if ship was hit
             flushinp();
@@ -218,10 +222,10 @@ void Player::Shoot(EnemyFleet &E)
         }
 
         // Erasing previous location of bullet
-        mvprintw(i + 1, loc, " ");
+        mvprintw(i + 1, currentLoc, " ");
 
         // Printing new location of bullet
-        mvprintw(i, loc, "*");
+        mvprintw(i, currentLoc, "*");
 
         // Keeps the fleet moving even while the bullet is travelling
         moveFleet(E);
@@ -231,8 +235,36 @@ void Player::Shoot(EnemyFleet &E)
 
         // Causing a slight delay so that we can see movement of bullet
         delay(30);
+
+        // Enabling player movement while bullet is travelling
+        move = getch();
+
+        // Checking if user pressed any key
+        if (move != ERR)
+        {
+            switch (move)
+            {
+            case KEY_LEFT: // Left arrow key
+                P.moveLeft();
+                break;
+            case KEY_RIGHT: // Right arrow key
+                P.moveRight();
+                break;
+            case 'p': // p or P
+            case 'P':
+                pauseGame();
+                break;
+            case 'e': // e or E
+            case 'E':
+                // The game will end once the program flow returns to startMenu()
+                state = GAME_ENDED;
+                goto return_to_menu; // Goes to line 269
+            default:;
+            }
+        }
     }
 
+return_to_menu:;
     // To prevent input buffering if ship was not hit
     flushinp();
 }
@@ -495,7 +527,7 @@ void startGame(int height, int width)
                 P.moveRight();
                 break;
             case 32: // Space bar
-                P.Shoot(E);
+                P.Shoot(P, E);
                 break;
             case 'p': // p or P
             case 'P':

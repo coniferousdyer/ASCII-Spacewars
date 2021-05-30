@@ -82,7 +82,7 @@ public:
     void moveLeft();
 
     // Shoots bullets from the spaceship's gun
-    void Shoot(EnemyFleet &E);
+    void Shoot(Player &P, EnemyFleet &E);
 };
 
 // Function to print a menu and allow the user to choose options
