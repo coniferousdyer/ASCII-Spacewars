@@ -195,7 +195,7 @@ void Player::Shoot(Player &P, EnemyFleet &E)
 
                     // Adding a slight delay so that the explosion is visible
                     refresh();
-                    delay(100);
+                    delay(30);
 
                     // Marking ship as hit
                     E.hit[j] = true;
