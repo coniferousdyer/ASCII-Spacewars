@@ -186,9 +186,6 @@ void Player::Shoot(Player &P, EnemyFleet &E)
                 {
                     for (int k = 0; k < 3; k++)
                     {
-                        // Replacing the spaceship design with spaces
-                        E.fleet[j].spaceship[k] = "      ";
-
                         // Printing the explosion
                         mvprintw(E.level[j / 10] + k, E.fleet[j].loc, explosion[k]);
                     }
