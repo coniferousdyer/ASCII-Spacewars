@@ -135,7 +135,7 @@ void Player::Shoot(Player &P, EnemyFleet &E)
     // currentLoc -> stores the current location of player ship so that bullet travels along that path
     int move, currentLoc = loc;
 
-    for (int i = maxHeight - 2; i >= -1; i--)
+    for (int i = maxHeight - 2; i >= -1 && !state; i--)
     {
         // Detecting the character at the next location of the bullet
         int ch1 = mvinch(i, currentLoc);
