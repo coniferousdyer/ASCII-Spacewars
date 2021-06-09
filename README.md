@@ -55,6 +55,8 @@ If you have the g++ compiler, you can use the following commands to compile the 
 <br>
 `g++ *.cpp -o name_of_executable -lncurses`
 
+You can choose to add flags `-O1`, `-O2` or `-O3` at the end of the above command in order to provide different levels of optimization (from lowest to highest).
+
 ### III. Running the Game
 
 Use the following command to run the game:
