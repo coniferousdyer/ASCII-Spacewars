@@ -557,6 +557,9 @@ void startMenu(int height, int width)
     // Enabling the use of arrow keys
     keypad(stdscr, true);
 
+    // To turn blinking cursor off
+    curs_set(0);
+
     std::string options[3] = {"Start Game", "Controls and Rules", "Exit"};
 
     int chosen_option, highlight = 0;
