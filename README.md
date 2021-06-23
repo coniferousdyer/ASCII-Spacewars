@@ -1,5 +1,9 @@
 # ASCII Spacewars
 
+Aliens from the planet of Krueldron are approaching planet Earth. They have managed to destroy all of Earth's mightiest armies. You are the sole pilot left. The Krueldronite fleet is fast approaching Earth. The mission is yours to defeat the Krueldronites and save the people of Earth from certain destruction. Do you have what it takes?
+
+# <strong>Introduction</strong>
+
 This is a terminal-based ASCII game similar to the 1978 game Space Invaders. This was written in C++, using the ncurses library. 
 
 <strong>About ncurses</strong>: <a href="https://github.com/mirror/ncurses">ncurses</a>
