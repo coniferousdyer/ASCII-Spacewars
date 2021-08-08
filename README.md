@@ -101,5 +101,8 @@ Your mission is to shoot down all the enemy spaceships before they reach the bot
 </p>
 <p align="center"><em>Screenshot 2</em></p>
 
-<br><br>
+## Future Features
+
+A feature to make the enemy spaceships shoot back is on the list.
+
 Hope you enjoy playing this game!
