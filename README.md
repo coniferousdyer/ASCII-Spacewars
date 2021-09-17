@@ -43,11 +43,15 @@ The program is divided into 3 files:
 
 1. In order to compile and run the game, you must have the ncurses library installed. To download the ncurses library on Debian/Ubuntu Linux, type the following command in the terminal:
 
-`sudo apt-get install libncurses5-dev libncursesw5-dev`
+```bash
+sudo apt-get install libncurses5-dev libncursesw5-dev
+```
 
 2. You can then clone this repository using the following command:
 
-`git clone https://github.com/coniferousdyer/ASCII-Spacewars.git`
+```bash
+git clone https://github.com/coniferousdyer/ASCII-Spacewars.git
+```
 
 You now have everything required to compile and run the game.
 
@@ -55,9 +59,10 @@ You now have everything required to compile and run the game.
 
 If you have the g++ compiler, you can use the following commands to compile the game:
 
-`cd ASCII-Spacewars`
-<br>
-`g++ *.cpp -o name_of_executable -lncurses`
+```bash
+cd ASCII-Spacewars
+g++ *.cpp -o name_of_executable -lncurses
+```
 
 You can choose to add flags `-O1`, `-O2` or `-O3` at the end of the above command in order to provide different levels of optimization (from lowest to highest).
 
@@ -65,7 +70,9 @@ You can choose to add flags `-O1`, `-O2` or `-O3` at the end of the above comman
 
 Use the following command to run the game:
 
-`./name_of_executable`
+```bash
+./name_of_executable
+```
 
 
 ## <strong>Rules of the Game</strong>
